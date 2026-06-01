@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BTShine — Premier Auto Detailing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8D5A3;
+      --gold-dark: #8B6914;
+      --black: #0A0A0A;
+      --off-black: #111111;
+      --charcoal: #1C1C1C;
+      --mid: #2E2E2E;
+      --border: rgba(201,168,76,0.25);
+      --text-muted: #888;
+      --white: #FAFAF8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-cta {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 0.6rem 1.6rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,168,76,0.07) 0%, transparent 70%),
+        linear-gradient(180deg, #0A0A0A 0%, #111111 100%);
+    }
+    .hero-line {
+      width: 1px; height: 5rem;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+      margin: 0 auto 2.5rem;
+      animation: fadeDown 1.2s ease forwards;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 0.8rem; font-weight: 300; letter-spacing: 0.15em;
+      color: var(--text-muted); max-width: 28rem;
+      margin: 0 auto 3rem;
+      animation: fadeUp 0.8s 0.7s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center;
+      animation: fadeUp 0.8s 0.9s ease both;
+    }
+    .btn-primary {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black); background: var(--gold);
+      padding: 0.9rem 2.5rem; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-outline {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 0.9rem 2.5rem; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--text-muted); text-align: center;
+      animation: pulse 2.5s infinite;
+    }
+    .hero-scroll::after {
+      content: ''; display: block; width: 1px; height: 2rem;
+      background: linear-gradient(to bottom, var(--text-muted), transparent);
+      margin: 0.5rem auto 0;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 4rem; }
+    .section-tag {
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; line-height: 1.15;
+    }
+    .divider {
+      width: 3rem; height: 1px;
+      background: var(--gold); margin: 1.5rem 0;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+      background: var(--off-black);
+      border-top: 1px solid var(--border);
+    }
+    .about-text p {
+      color: var(--text-muted); font-size: 0.85rem;
+      margin-bottom: 1.2rem; max-width: 34rem;
+    }
+    .stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-top: 3rem;
+    }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 3rem; font-weight: 300; color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-frame {
+      width: 100%; padding-bottom: 125%;
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .about-img-frame::before {
+      content: 'BTShine';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 4rem;
+      color: rgba(201,168,76,0.12); letter-spacing: 0.2em;
+    }
+    .about-accent {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      width: 60%; padding-bottom: 40%;
+      border: 1px solid var(--border);
+      background: var(--black);
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--black); border-top: 1px solid var(--border); }
+    .services-header { text-align: center; margin-bottom: 4rem; }
+    .services-header .divider { margin: 1.5rem auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .service-card {
+      background: var(--off-black);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--charcoal); }
+    .service-icon {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .service-icon::before {
+      content: ''; display: block;
+      width: 2rem; height: 1px; background: var(--gold);
+    }
+    .service-name {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+    .service-desc {
+      font-size: 0.78rem; color: var(--text-muted);
+      line-height: 1.8; margin-bottom: 1.5rem;
+    }
+    .service-includes {
+      list-style: none; margin-bottom: 1.5rem;
+    }
+    .service-includes li {
+      font-size: 0.72rem; color: var(--text-muted);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .service-includes li::before {
+      content: ''; display: block;
+      width: 4px; height: 4px; background: var(--gold);
+      flex-shrink: 0;
+    }
+    .service-price {
+      font-family: var(--serif); font-size: 1.8rem; font-weight: 300;
+      color: var(--gold);
+    }
+    .service-price span { font-size: 0.75rem; color: var(--text-muted); font-family: var(--sans); }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--off-black); border-top: 1px solid var(--border); }
+    .gallery-header { margin-bottom: 3rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 3px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .gallery-item {
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+      min-height: 500px;
+    }
+    .gallery-item:not(:first-child) { min-height: 240px; }
+    .gallery-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .gallery-label {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(201,168,76,0.4);
+    }
+    .gallery-note {
+      font-family: var(--serif); font-style: italic;
+      font-size: 0.85rem; color: rgba(255,255,255,0.15);
+    }
+    .gallery-tag {
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(10,10,10,0.8);
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--black); border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+    }
+    .contact-info p {
+      font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2.5rem;
+      max-width: 28rem;
+    }
+    .contact-detail {
+      display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;
+    }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .contact-item-icon {
+      font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); min-width: 4rem; padding-top: 0.1rem;
+    }
+    .contact-item-text {
+      font-size: 0.82rem; color: var(--white);
+    }
+    .contact-item-text small { color: var(--text-muted); font-size: 0.72rem; display: block; }
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: var(--charcoal);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 300;
+      padding: 0.8rem 1rem;
+      outline: none; width: 100%;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: #555; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-textarea { resize: vertical; min-height: 9rem; }
+    .form-select option { background: var(--charcoal); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--off-black);
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--serif); font-size: 1.4rem;
+      font-weight: 300; letter-spacing: 0.15em;
+      color: var(--gold);
+    }
+    .footer-logo span { color: var(--white); }
+    .footer-copy {
+      font-size: 0.65rem; color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; } 50% { opacity: 0.85; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { grid-row: auto; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">BT<span>Shine</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Book Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div style="position:relative; z-index:1; width:100%;">
+      <div class="hero-line"></div>
+      <p class="hero-eyebrow">Premier Auto Detailing · Houston, TX</p>
+      <h1>Where Every Car<br>Becomes <em>Art</em></h1>
+      <p class="hero-sub">Obsessive attention to detail. Flawless finishes. Your vehicle deserves nothing less.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">View Services</a>
+        <a href="#contact" class="btn-outline">Book a Detail</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text">
+      <p class="section-tag">Our Story</p>
+      <h2>Passion for<br>Perfection</h2>
+      <div class="divider"></div>
+      <p>BTShine was built on one belief: every vehicle deserves to be treated like a showroom piece. We bring years of professional detailing experience, premium-grade products, and an unwavering commitment to quality to every job — no shortcuts, no compromises.</p>
+      <p>Whether it's a daily driver or a weekend exotic, we approach every car with the same level of care and craftsmanship that sets BTShine apart from the rest.</p>
+      <div class="stats">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Cars Detailed</div>
+        </div>
+        <div>
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Avg Rating</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Satisfaction</div>
+        </div>
+        <div>
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-img-frame"></div>
+      <div class="about-accent"></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header">
+      <p class="section-tag">What We Offer</p>
+      <h2>Our Services</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <!-- Essential -->
+      <div class="service-card">
+        <div class="service-icon">Essential</div>
+        <div class="service-name">The Signature Wash</div>
+        <p class="service-desc">A thorough exterior and interior refresh — the perfect regular maintenance detail to keep your vehicle looking its best.</p>
+        <ul class="service-includes">
+          <li>Two-bucket hand wash & dry</li>
+          <li>Wheel & tire cleaning</li>
+          <li>Interior vacuum & wipe-down</li>
+          <li>Window cleaning (in & out)</li>
+          <li>Tire dressing</li>
+        </ul>
+        <div class="service-price">$120 <span>/ starting at</span></div>
+      </div>
+      <!-- Premium -->
+      <div class="service-card">
+        <div class="service-icon">Premium</div>
+        <div class="service-name">Full Detail</div>
+        <p class="service-desc">Our most popular service — a head-to-toe transformation inside and out, leaving no surface untouched.</p>
+        <ul class="service-includes">
+          <li>Everything in Signature Wash</li>
+          <li>Clay bar decontamination</li>
+          <li>Machine polish (single stage)</li>
+          <li>Leather conditioning</li>
+          <li>Engine bay cleaning</li>
+          <li>Sealant protection applied</li>
+        </ul>
+        <div class="service-price">$280 <span>/ starting at</span></div>
+      </div>
+      <!-- Elite -->
+      <div class="service-card">
+        <div class="service-icon">Elite</div>
+        <div class="service-name">Paint Correction</div>
+        <p class="service-desc">For the discerning owner. A multi-stage correction process that restores your paint to better-than-new condition.</p>
+        <ul class="service-includes">
+          <li>Everything in Full Detail</li>
+          <li>Multi-stage machine polishing</li>
+          <li>Swirl & scratch removal</li>
+          <li>Paint depth measurement</li>
+          <li>Ceramic coating prep</li>
+          <li>Premium wax or coating</li>
+        </ul>
+        <div class="service-price">$550+ <span>/ contact for quote</span></div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:2rem; font-size:0.72rem; color:var(--text-muted); letter-spacing:0.1em;">
+      Pricing varies by vehicle size & condition. <a href="#contact" style="color:var(--gold); text-decoration:none;">Contact us</a> for a custom quote.
+    </p>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="gallery-header">
+      <p class="section-tag">Before & After</p>
+      <h2>Our Work</h2>
+      <div class="divider"></div>
+      <p style="font-size:0.82rem; color:var(--text-muted); max-width:30rem;">Every transformation tells a story. Add your own photos to this gallery to showcase BTShine's results.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-label">Before / After</div>
+          <div class="gallery-note">Replace with your photos</div>
+        </div>
+        <div class="gallery-tag">Full Detail — Sedan</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-label">Before</div>
+          <div class="gallery-note">Your photo here</div>
+        </div>
+        <div class="gallery-tag">Paint Correction</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-label">After</div>
+          <div class="gallery-note">Your photo here</div>
+        </div>
+        <div class="gallery-tag">Interior Detail</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-label">Before</div>
+          <div class="gallery-note">Your photo here</div>
+        </div>
+        <div class="gallery-tag">Wheel Restoration</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <div class="gallery-label">After</div>
+          <div class="gallery-note">Your photo here</div>
+        </div>
+        <div class="gallery-tag">Ceramic Coating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-info">
+      <p class="section-tag">Get In Touch</p>
+      <h2>Book Your<br>Detail</h2>
+      <div class="divider"></div>
+      <p>Ready to experience the BTShine difference? Fill out the form and we'll get back to you within 24 hours to confirm your appointment.</p>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <div class="contact-item-icon">Phone</div>
+          <div class="contact-item-text">
+            (XXX) XXX-XXXX
+            <small>Mon–Sat, 8am–6pm</small>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">Email</div>
+          <div class="contact-item-text">
+            contact@btshine.com
+            <small>We reply within 24 hours</small>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">Area</div>
+          <div class="contact-item-text">
+            Houston, TX &amp; surrounding areas
+            <small>Mobile detailing available</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" action="https://formspree.io/f/mbdbnrbv" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" placeholder="Smith" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input class="form-input" type="tel" placeholder="(713) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="john@email.com" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Vehicle</label>
+        <input class="form-input" type="text" placeholder="e.g. 2021 BMW M4 — Black" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service</label>
+        <select class="form-select">
+          <option value="">Select a service…</option>
+          <option>Signature Wash — from $120</option>
+          <option>Full Detail — from $280</option>
+          <option>Paint Correction — from $550</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us about your vehicle, preferred date, or any questions…"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="border:none; cursor:pointer; align-self:flex-start;">
+        Send Booking Request
+      </button>
+
+    </form>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" style="background:var(--black); border-top:1px solid var(--border);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <p class="section-tag">Customer Reviews</p>
+      <h2>What Our Clients Say</h2>
+      <div class="divider"></div>
+
+      <!-- Average rating display -->
+      <div id="reviews-summary" style="margin-bottom:3rem; display:flex; align-items:center; gap:1.5rem;">
+        <div style="text-align:center;">
+          <div id="avg-score" style="font-family:var(--serif); font-size:4rem; font-weight:300; color:var(--gold); line-height:1;">—</div>
+          <div id="avg-stars" style="font-size:1.4rem; letter-spacing:0.1em; color:var(--gold); margin:0.25rem 0;">☆☆☆☆☆</div>
+          <div id="review-count" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">No reviews yet</div>
+        </div>
+      </div>
+
+      <!-- Reviews grid -->
+      <div id="reviews-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1px; background:var(--border); border:1px solid var(--border); margin-bottom:4rem;">
+        <div id="reviews-empty" style="grid-column:1/-1; padding:3rem; text-align:center; background:var(--off-black);">
+          <p style="font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--text-muted);">Be the first to leave a review.</p>
+        </div>
+      </div>
+
+      <!-- Leave a review form -->
+      <div style="max-width:600px;">
+        <p class="section-tag" style="margin-bottom:1rem;">Leave a Review</p>
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input class="form-input" id="rv-name" type="text" placeholder="John S." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Vehicle</label>
+              <input class="form-input" id="rv-vehicle" type="text" placeholder="2020 Mustang GT" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rating</label>
+            <div id="star-picker" style="display:flex; gap:0.5rem; margin-top:0.25rem;">
+              <span class="star" data-val="1" style="font-size:1.8rem; cursor:pointer; color:#444; transition:color 0.15s;">★</span>
+              <span class="star" data-val="2" style="font-size:1.8rem; cursor:pointer; color:#444; transition:color 0.15s;">★</span>
+              <span class="star" data-val="3" style="font-size:1.8rem; cursor:pointer; color:#444; transition:color 0.15s;">★</span>
+              <span class="star" data-val="4" style="font-size:1.8rem; cursor:pointer; color:#444; transition:color 0.15s;">★</span>
+              <span class="star" data-val="5" style="font-size:1.8rem; cursor:pointer; color:#444; transition:color 0.15s;">★</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Review</label>
+            <textarea class="form-textarea" id="rv-text" placeholder="Tell others about your experience with BTShine…" style="min-height:7rem;"></textarea>
+          </div>
+          <div>
+            <button onclick="submitReview()" class="btn-primary" style="border:none; cursor:pointer;">Post Review</button>
+            <p id="rv-error" style="display:none; font-size:0.75rem; color:#c0392b; margin-top:0.5rem;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">BT<span>Shine</span></div>
+    <p class="footer-copy">© 2025 BTShine Auto Detailing · Houston, TX</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── NAV SHRINK ──
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      nav.style.padding = window.scrollY > 60 ? '0.85rem 4rem' : '1.25rem 4rem';
+    });
+
+    // ── REVIEWS ──
+    const STORAGE_KEY = 'btshine_reviews';
+    let selectedRating = 0;
+
+    function loadReviews() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function saveReviews(reviews) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+    }
+
+    function starsHTML(rating, filled = true) {
+      return Array.from({length: 5}, (_, i) =>
+        `<span style="color:${i < rating ? 'var(--gold)' : '#333'};">★</span>`
+      ).join('');
+    }
+
+    function renderReviews() {
+      const reviews = loadReviews();
+      const grid = document.getElementById('reviews-grid');
+      const empty = document.getElementById('reviews-empty');
+      const avgScore = document.getElementById('avg-score');
+      const avgStars = document.getElementById('avg-stars');
+      const countEl = document.getElementById('review-count');
+
+      if (reviews.length === 0) {
+        empty.style.display = 'block';
+        avgScore.textContent = '—';
+        avgStars.innerHTML = '☆☆☆☆☆';
+        countEl.textContent = 'No reviews yet';
+        return;
+      }
+
+      empty.style.display = 'none';
+      const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+      avgScore.textContent = avg.toFixed(1);
+      avgStars.innerHTML = starsHTML(Math.round(avg));
+      countEl.textContent = `${reviews.length} review${reviews.length !== 1 ? 's' : ''}`;
+
+      // remove old cards (keep empty placeholder)
+      grid.querySelectorAll('.rv-card').forEach(c => c.remove());
+
+      reviews.slice().reverse().forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'rv-card';
+        card.style.cssText = 'background:var(--off-black); padding:1.75rem 1.5rem;';
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+            <div>
+              <div style="font-weight:500; font-size:0.85rem; margin-bottom:0.2rem;">${escHtml(r.name)}</div>
+              ${r.vehicle ? `<div style="font-size:0.7rem; color:var(--text-muted); letter-spacing:0.1em;">${escHtml(r.vehicle)}</div>` : ''}
+            </div>
+            <div style="font-size:1rem; letter-spacing:0.05em;">${starsHTML(r.rating)}</div>
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.7; margin-bottom:0.75rem;">${escHtml(r.text)}</p>
+          <div style="font-size:0.65rem; color:#444; letter-spacing:0.1em;">${r.date}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function submitReview() {
+      const name = document.getElementById('rv-name').value.trim();
+      const vehicle = document.getElementById('rv-vehicle').value.trim();
+      const text = document.getElementById('rv-text').value.trim();
+      const errEl = document.getElementById('rv-error');
+
+      if (!name) { showErr('Please enter your name.'); return; }
+      if (selectedRating === 0) { showErr('Please select a star rating.'); return; }
+      if (!text) { showErr('Please write a short review.'); return; }
+
+      const reviews = loadReviews();
+      reviews.push({
+        name, vehicle, text, rating: selectedRating,
+        date: new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})
+      });
+      saveReviews(reviews);
+
+      // reset form
+      document.getElementById('rv-name').value = '';
+      document.getElementById('rv-vehicle').value = '';
+      document.getElementById('rv-text').value = '';
+      selectedRating = 0;
+      document.querySelectorAll('.star').forEach(s => s.style.color = '#444');
+      errEl.style.display = 'none';
+
+      renderReviews();
+      document.getElementById('reviews-grid').scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+
+    function showErr(msg) {
+      const el = document.getElementById('rv-error');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    // Star picker
+    document.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.val);
+        document.querySelectorAll('.star').forEach(s => {
+          s.style.color = parseInt(s.dataset.val) <= selectedRating ? 'var(--gold)' : '#444';
+        });
+      });
+      star.addEventListener('mouseenter', () => {
+        const val = parseInt(star.dataset.val);
+        document.querySelectorAll('.star').forEach(s => {
+          s.style.color = parseInt(s.dataset.val) <= val ? 'var(--gold-light)' : '#444';
+        });
+      });
+      star.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.star').forEach(s => {
+          s.style.color = parseInt(s.dataset.val) <= selectedRating ? 'var(--gold)' : '#444';
+        });
+      });
+    });
+
+    renderReviews();
+  </script>
+</body>
+</html>
